@@ -1,0 +1,47 @@
+﻿@using System.Data;
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <center><h1 style="color:red;">The BookShop</h1></center>
+    <br />
+
+    No of Products in Cart : @ViewBag.cartnumber  &nbsp; &nbsp; &nbsp; &nbsp; @Html.ActionLink("Continue Shopping ", "Index", "Home")
+    <font color="RED">@TempData["msg"].ToString()</font>
+    <br />
+    <br />
+    <br />
+    <table border="1" bgcolor="#99ff66">
+        <tr>
+            <th>S.No</th>
+            <th>Book ID</th>
+            <th>Book Name</th>
+            <th>Price</th>
+            <th>Book Image</th>
+            <th>Action</th>
+
+
+        </tr>
+        @foreach (DataRow row in Model.Rows)
+        {
+            <tr>
+                <td>@row["sno"]</td>
+                <td>@row["BookId"]</td>
+                <td>@row["BookName"]</td>
+                <td>@row["Price"]</td>
+                <td><img src="~/@Url.Content(row["BookImage"].ToString())" alt="" width="150" height="150" /></td>
+                <td>@Html.ActionLink("Remove", "Index", "RemoveProduct", routeValues: new { sno = row["sno"].ToString(), }, htmlAttributes: null)</td>
+
+            </tr>
+        }
+    </table>
+</body>
+</html>

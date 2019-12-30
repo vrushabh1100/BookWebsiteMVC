@@ -1,0 +1,46 @@
+﻿@model BookProj.Models.ProductDetails
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <center><h1 style="color:red;">Welcome To The BookShop</h1></center>
+    <br />
+    No of Products in Cart : <b>@ViewBag.cartnumber</b>
+    @if (Model != null)
+    {
+        if (Model.productlist.Count > 0)
+        {
+            <table border="1" bgcolor="#66ffff" width="100%">
+                <tr>
+                    <th>Book ID</th>
+                    <th>Book Name</th>
+                    <th>Price</th>
+                    <th>Book Image</th>
+                </tr>
+                @foreach (var item in Model.productlist)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(m => item.BookId) </td>
+                        <td>@Html.DisplayFor(m => item.BookName)</td>
+                        <td>@Html.DisplayFor(m => item.Price)</td>
+                        <td><img src="~/@Url.Content(item.BookImage)" alt="" width="150" height="150" /></td>
+                        <td>@Html.ActionLink("Buy Now", "AddCart", "AddCart", routeValues: new { BookId = item.BookId, }, htmlAttributes: null)</td>
+                    </tr>
+                }
+            </table>
+        }
+        else
+        {
+            <b>No Details Found.</b>
+        }
+    }
+</body>
+</html>
